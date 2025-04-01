@@ -1,3 +1,17 @@
+const userInput = document.querySelector('#userInput')
+const addPlayer = document.querySelector('.addPlayer')
+const players = document.querySelector('.players')
+
+addPlayer.addEventListener('click', () => {
+    if (userInput.value !== '') {
+        const newPlayer = document.createElement('div')
+        
+        newPlayer.innerHTML = userInput.value
+
+        players.append(newPlayer)
+    }
+})
+
 const families = [
     "Grimes",
     "Parker",
