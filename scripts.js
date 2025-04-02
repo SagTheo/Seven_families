@@ -1,14 +1,51 @@
 const userInput = document.querySelector('#userInput')
 const addPlayer = document.querySelector('.addPlayer')
 const players = document.querySelector('.players')
+const allPlayers = []
+let idCounter = 0
 
 addPlayer.addEventListener('click', () => {
     if (userInput.value !== '') {
         const newPlayer = document.createElement('div')
-        
-        newPlayer.innerHTML = userInput.value
+        const name = document.createElement('span')
+        const deletePlayer = document.createElement('button')
 
-        players.append(newPlayer)
+        newPlayer.setAttribute('id', idCounter)
+
+        name.innerHTML = userInput.value
+        deletePlayer.innerHTML = "Remove player"
+
+        // Needs more work
+        deletePlayer.addEventListener('click', () => {
+            for (let i = 0; i < allPlayers.length; i++) {
+                const currId = allPlayers[i].getAttribute('id')
+                console.log(currId)
+                console.log(idCounter)
+
+                if (currId === idCounter) {
+                    console.log(currId)
+                    allPlayers.splice(i, 1)
+                }
+            }
+
+            players.innerHTML = ''
+
+            allPlayers.forEach(player => {
+                players.append(player)
+            })
+        })
+
+        newPlayer.append(name)
+        newPlayer.append(deletePlayer)
+
+        allPlayers.push(newPlayer)
+
+        allPlayers.forEach(player => {
+            players.append(player)
+        })
+
+        userInput.value = ''
+        idCounter++
     }
 })
 
