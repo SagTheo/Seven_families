@@ -10,20 +10,18 @@ addPlayer.addEventListener('click', () => {
         const name = document.createElement('span')
         const deletePlayer = document.createElement('button')
 
+        deletePlayer.setAttribute('class', idCounter)
         newPlayer.setAttribute('id', idCounter)
 
         name.innerHTML = userInput.value
         deletePlayer.innerHTML = "Remove player"
 
-        // Needs more work
-        deletePlayer.addEventListener('click', () => {
+        deletePlayer.addEventListener('click', (e) => {
             for (let i = 0; i < allPlayers.length; i++) {
-                const currId = allPlayers[i].getAttribute('id')
-                console.log(currId)
-                console.log(idCounter)
+                const idCurrPlayer = allPlayers[i].getAttribute('id')
+                const idCurrButton = e.target.getAttribute('class')
 
-                if (currId === idCounter) {
-                    console.log(currId)
+                if (idCurrPlayer === idCurrButton) {
                     allPlayers.splice(i, 1)
                 }
             }
@@ -40,9 +38,7 @@ addPlayer.addEventListener('click', () => {
 
         allPlayers.push(newPlayer)
 
-        allPlayers.forEach(player => {
-            players.append(player)
-        })
+        players.append(newPlayer)
 
         userInput.value = ''
         idCounter++
