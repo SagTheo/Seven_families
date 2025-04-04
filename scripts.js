@@ -31,6 +31,13 @@ addPlayer.addEventListener('click', () => {
             allPlayers.forEach(player => {
                 players.append(player)
             })
+
+            if (addPlayer.disabled === true) {
+                if (allPlayers.length < 6) {
+                    addPlayer.disabled = false
+                }    
+            }
+            
         })
 
         newPlayer.append(name)
@@ -41,7 +48,12 @@ addPlayer.addEventListener('click', () => {
         players.append(newPlayer)
 
         userInput.value = ''
+        userInput.focus()
         idCounter++
+
+        if (allPlayers.length === 6) {
+            addPlayer.disabled = true
+        } 
     }
 })
 
