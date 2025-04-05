@@ -1,7 +1,9 @@
 const userInput = document.querySelector('#userInput')
 const addPlayer = document.querySelector('.addPlayer')
+const startGame = document.querySelector('.startGame')
+const newGame = document.querySelector('.newGame')
 const players = document.querySelector('.players')
-const allPlayers = []
+let allPlayers = []
 let idCounter = 0
 
 addPlayer.addEventListener('click', () => {
@@ -10,9 +12,8 @@ addPlayer.addEventListener('click', () => {
         const name = document.createElement('span')
         const deletePlayer = document.createElement('button')
 
-        deletePlayer.setAttribute('class', idCounter)
         newPlayer.setAttribute('id', idCounter)
-
+        deletePlayer.setAttribute('class', idCounter)
         name.innerHTML = userInput.value
         deletePlayer.innerHTML = "Remove player"
 
@@ -55,6 +56,24 @@ addPlayer.addEventListener('click', () => {
             addPlayer.disabled = true
         } 
     }
+})
+
+startGame.addEventListener('click', () => {
+    if (allPlayers.length < 2) {
+        alert('There must be at least 2 players to start a game')
+    } else {
+        addPlayer.disabled = true
+        
+        allPlayers.forEach(player => {
+            player.children[1].disabled = true
+        })
+    }
+})
+
+newGame.addEventListener('click', () => {
+    players.innerHTML = ''
+    addPlayer.disabled = false
+    allPlayers = []
 })
 
 const families = [
