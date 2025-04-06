@@ -5,6 +5,32 @@ const newGame = document.querySelector('.newGame')
 const players = document.querySelector('.players')
 let allPlayers = []
 let idCounter = 0
+let names = []
+const families = [
+    "Grimes",
+    "Parker",
+    "Wayne",
+    "Rogers",
+    "Banner",
+    "Kent",
+    "Queen"
+]
+const members = [
+    "Grandfather",
+    "Grandmother",
+    "Father",
+    "Mother",
+    "Son",
+    "Daughter"
+]
+const allFamilies = []
+const playersCards = {}
+
+families.forEach(family => {
+    members.forEach(member => {
+        allFamilies.push(member + ' ' + family)
+    })
+})
 
 addPlayer.addEventListener('click', () => {
     if (userInput.value !== '') {
@@ -15,6 +41,7 @@ addPlayer.addEventListener('click', () => {
         newPlayer.setAttribute('id', idCounter)
         deletePlayer.setAttribute('class', idCounter)
         name.innerHTML = userInput.value
+        names.push(userInput.value)
         deletePlayer.innerHTML = "Remove player"
 
         deletePlayer.addEventListener('click', (e) => {
@@ -24,6 +51,7 @@ addPlayer.addEventListener('click', () => {
 
                 if (idCurrPlayer === idCurrButton) {
                     allPlayers.splice(i, 1)
+                    names.splice(i, 1)
                 }
             }
 
@@ -32,6 +60,8 @@ addPlayer.addEventListener('click', () => {
             allPlayers.forEach(player => {
                 players.append(player)
             })
+
+            console.log(names)
 
             if (addPlayer.disabled === true) {
                 if (allPlayers.length < 6) {
@@ -67,6 +97,15 @@ startGame.addEventListener('click', () => {
         allPlayers.forEach(player => {
             player.children[1].disabled = true
         })
+
+        const cardsShuffled = shuffle(allFamilies)
+
+        for (let i = 0; i < names.length; i++) {
+            playersCards[names[i]] = cardsShuffled.splice(0, 7)
+        }
+        
+        console.log(playersCards)
+        console.log(cardsShuffled)
     }
 })
 
@@ -74,30 +113,8 @@ newGame.addEventListener('click', () => {
     players.innerHTML = ''
     addPlayer.disabled = false
     allPlayers = []
+    names = []
 })
-
-const families = [
-    "Grimes",
-    "Parker",
-    "Wayne",
-    "Rogers",
-    "Banner",
-    "Kent",
-    "Queen"
-]
-
-const members = [
-    "Grandfather",
-    "Grandmother",
-    "Father",
-    "Mother",
-    "Son",
-    "Daughter"
-]
-
-const allFamilies = []
-const nbPlayers = 4
-const playersCards = {}
 
 const shuffle = array => {
     const copy = array.slice()
@@ -115,18 +132,3 @@ const shuffle = array => {
 
     return result
 }
-
-families.forEach(family => {
-    members.forEach(member => {
-        allFamilies.push(member + ' ' + family)
-    })
-})
-
-const cardsShuffled =  shuffle(allFamilies)
-
-for (let i = 1; i <= nbPlayers; i++) {
-    playersCards[`player_${i}`] = cardsShuffled.splice(0, 7)
-}
-
-console.log(playersCards)
-console.log(cardsShuffled)
