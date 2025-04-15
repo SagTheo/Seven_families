@@ -3,6 +3,7 @@ const addPlayer = document.querySelector('.addPlayer')
 const startGame = document.querySelector('.startGame')
 const newGame = document.querySelector('.newGame')
 const players = document.querySelector('.players')
+const currGame = document.querySelector('.currGame')
 let allPlayers = []
 let idCounter = 0
 let names = []
@@ -61,8 +62,6 @@ addPlayer.addEventListener('click', () => {
                 players.append(player)
             })
 
-            console.log(names)
-
             if (addPlayer.disabled === true) {
                 if (allPlayers.length < 6) {
                     addPlayer.disabled = false
@@ -93,6 +92,7 @@ startGame.addEventListener('click', () => {
         alert('There must be at least 2 players to start a game')
     } else {
         addPlayer.disabled = true
+        startGame.disabled = true
         
         allPlayers.forEach(player => {
             player.children[1].disabled = true
@@ -103,17 +103,44 @@ startGame.addEventListener('click', () => {
         for (let i = 0; i < names.length; i++) {
             playersCards[names[i]] = cardsShuffled.splice(0, 7)
         }
-        
-        console.log(playersCards)
-        console.log(cardsShuffled)
+
+        // bug --> name span element disapears
+
+        let stopGame = false
+        let currPlayerPlaying = 0
+
+        let title = document.createElement('h1')
+        title.innerHTML = `${names[currPlayerPlaying]} is playing`
+
+        let comment = document.querySelector('span')
+        comment.innerHTML = 'Here are your cards:'
+
+        let currCards = document.createElement('ul')
+        playersCards[names[currPlayerPlaying]].forEach(card => {
+            let currCard = document.createElement('li')
+            currCard.innerHTML = card
+
+            currCards.append(currCard)
+        })
+
+        currGame.append(title)
+        currGame.append(comment)
+        currGame.append(currCards)
+
+
+        // while (!stopGame) {
+
+        // }
     }
 })
 
 newGame.addEventListener('click', () => {
     players.innerHTML = ''
     addPlayer.disabled = false
+    startGame.disabled = false
     allPlayers = []
     names = []
+    currGame.innerHTML = ''
 })
 
 const shuffle = array => {
