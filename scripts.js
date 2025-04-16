@@ -104,18 +104,17 @@ startGame.addEventListener('click', () => {
             playersCards[names[i]] = cardsShuffled.splice(0, 7)
         }
 
-        // bug --> name span element disapears
-
         let stopGame = false
         let currPlayerPlaying = 0
 
         let title = document.createElement('h1')
         title.innerHTML = `${names[currPlayerPlaying]} is playing`
 
-        let comment = document.querySelector('span')
+        let comment = document.createElement('span')
         comment.innerHTML = 'Here are your cards:'
 
         let currCards = document.createElement('ul')
+
         playersCards[names[currPlayerPlaying]].forEach(card => {
             let currCard = document.createElement('li')
             currCard.innerHTML = card
