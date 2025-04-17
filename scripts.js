@@ -122,10 +122,57 @@ startGame.addEventListener('click', () => {
             currCards.append(currCard)
         })
 
+        let whichCard = document.createElement('span')
+        whichCard.innerHTML = 'Which card do you want?'
+
+        let selectMember = document.createElement('select')
+        selectMember.setAttribute('name', 'selectMember')
+        
+        let chooseOption = document.createElement('option')
+        chooseOption.innerHTML = 'Choose an option'
+        chooseOption.setAttribute('value', '')
+
+        selectMember.append(chooseOption)
+
+        members.forEach(member => {
+            let currOption = document.createElement('option')
+            currOption.innerHTML = member
+            currOption.setAttribute('value', member)
+
+            selectMember.append(currOption)
+        })
+
+        selectMember.addEventListener('change', (e) => {
+            console.log(e.target.value)
+        })
+
+        let selectFamily = document.createElement('select')
+        selectFamily.setAttribute('name', 'selectFamily')
+
+        let chooseOption2 = document.createElement('option')
+        chooseOption2.innerHTML = 'Choose an option'
+        chooseOption2.setAttribute('value', '')
+
+        selectFamily.append(chooseOption2)
+
+        families.forEach(family => {
+            let currOption = document.createElement('option')
+            currOption.innerHTML = family
+            currOption.setAttribute('value', family)
+
+            selectFamily.append(currOption)
+        })
+
+        selectFamily.addEventListener('change', (e) => {
+            console.log(e.target.value)
+        })
+
         currGame.append(title)
         currGame.append(comment)
         currGame.append(currCards)
-
+        currGame.append(whichCard)
+        currGame.append(selectMember)
+        currGame.append(selectFamily)
 
         // while (!stopGame) {
 
