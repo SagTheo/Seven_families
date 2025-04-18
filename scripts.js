@@ -122,6 +122,9 @@ startGame.addEventListener('click', () => {
             currCards.append(currCard)
         })
 
+        // Choosing card
+        let cardChosen = ''
+
         let whichCard = document.createElement('span')
         whichCard.innerHTML = 'Which card do you want?'
 
@@ -143,7 +146,7 @@ startGame.addEventListener('click', () => {
         })
 
         selectMember.addEventListener('change', (e) => {
-            console.log(e.target.value)
+            cardChosen += e.target.value
         })
 
         let selectFamily = document.createElement('select')
@@ -164,7 +167,51 @@ startGame.addEventListener('click', () => {
         })
 
         selectFamily.addEventListener('change', (e) => {
-            console.log(e.target.value)
+            cardChosen += ' '
+            cardChosen += e.target.value
+        })
+
+        // Choosing player
+        let playerChosen = null
+
+        let whichPlayer = document.createElement('span')
+        whichPlayer.innerHTML = 'Which player do you want to ask a card from?'
+
+        let selectPlayer = document.createElement('select')
+        selectPlayer.setAttribute('name', 'selectPlayer')
+
+        let chooseOption3 = document.createElement('option')
+        chooseOption3.innerHTML = 'Choose an option'
+        chooseOption3.setAttribute('value', '')
+
+        selectPlayer.append(chooseOption3)
+
+        names.forEach(name => {
+            if (name !== names[currPlayerPlaying]) {
+                let currOption = document.createElement('option')
+                currOption.innerHTML = name
+                currOption.setAttribute('value', name)
+
+                selectPlayer.append(currOption) 
+            }
+        })
+
+        selectPlayer.addEventListener('change', (e) => {
+            playerChosen = e.target.value
+        })
+
+        // Confirm choices
+        let confirmChoices = document.createElement('button')
+
+        confirmChoices.innerHTML = 'Confirm choices'
+
+        confirmChoices.addEventListener('click', () => {
+            selectMember.disabled = true
+            selectFamily.disabled = true
+            selectPlayer.disabled = true
+
+            console.log(cardChosen)
+            console.log(playerChosen)
         })
 
         currGame.append(title)
@@ -173,6 +220,9 @@ startGame.addEventListener('click', () => {
         currGame.append(whichCard)
         currGame.append(selectMember)
         currGame.append(selectFamily)
+        currGame.append(whichPlayer)
+        currGame.append(selectPlayer)
+        currGame.append(confirmChoices)
 
         // while (!stopGame) {
 
