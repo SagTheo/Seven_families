@@ -210,8 +210,23 @@ startGame.addEventListener('click', () => {
             selectFamily.disabled = true
             selectPlayer.disabled = true
 
-            console.log(cardChosen)
-            console.log(playerChosen)
+            if (playersCards[playerChosen].includes(cardChosen)) {
+                const index = playersCards[playerChosen].indexOf(cardChosen)
+
+                playersCards[playerChosen].splice(index, 1)
+
+                playersCards[names[currPlayerPlaying]].push(cardChosen)
+            } else if (cardsShuffled.length > 0) {
+                playersCards[names[currPlayerPlaying]].push(cardsShuffled.pop())
+            }
+
+            const familyName = cardChosen.split(' ')[1]
+
+            if (checkFullFamily(playersCards[names[currPlayerPlaying]], familyName)) {
+                alert(`${names[currPlayerPlaying]} has won`)
+            } else {
+                alert('Games continues')
+            }
         })
 
         currGame.append(title)
@@ -254,4 +269,20 @@ const shuffle = array => {
     result.push(copy[0])
 
     return result
+}
+
+const checkFullFamily = (cards, familyName) => {
+    let counter = 0
+
+    cards.forEach(card => {
+        if (card.includes(familyName)) {
+            counter++
+        }
+    })
+
+    if (counter === 7) {
+        return true
+    }
+
+    return false
 }
