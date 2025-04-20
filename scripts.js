@@ -107,141 +107,149 @@ startGame.addEventListener('click', () => {
         let stopGame = false
         let currPlayerPlaying = 0
 
-        let title = document.createElement('h1')
-        title.innerHTML = `${names[currPlayerPlaying]} is playing`
-
-        let comment = document.createElement('span')
-        comment.innerHTML = 'Here are your cards:'
-
-        let currCards = document.createElement('ul')
-
-        playersCards[names[currPlayerPlaying]].forEach(card => {
-            let currCard = document.createElement('li')
-            currCard.innerHTML = card
-
-            currCards.append(currCard)
-        })
-
-        // Choosing card
-        let cardChosen = ''
-
-        let whichCard = document.createElement('span')
-        whichCard.innerHTML = 'Which card do you want?'
-
-        let selectMember = document.createElement('select')
-        selectMember.setAttribute('name', 'selectMember')
-        
-        let chooseOption = document.createElement('option')
-        chooseOption.innerHTML = 'Choose an option'
-        chooseOption.setAttribute('value', '')
-
-        selectMember.append(chooseOption)
-
-        members.forEach(member => {
-            let currOption = document.createElement('option')
-            currOption.innerHTML = member
-            currOption.setAttribute('value', member)
-
-            selectMember.append(currOption)
-        })
-
-        selectMember.addEventListener('change', (e) => {
-            cardChosen += e.target.value
-        })
-
-        let selectFamily = document.createElement('select')
-        selectFamily.setAttribute('name', 'selectFamily')
-
-        let chooseOption2 = document.createElement('option')
-        chooseOption2.innerHTML = 'Choose an option'
-        chooseOption2.setAttribute('value', '')
-
-        selectFamily.append(chooseOption2)
-
-        families.forEach(family => {
-            let currOption = document.createElement('option')
-            currOption.innerHTML = family
-            currOption.setAttribute('value', family)
-
-            selectFamily.append(currOption)
-        })
-
-        selectFamily.addEventListener('change', (e) => {
-            cardChosen += ' '
-            cardChosen += e.target.value
-        })
-
-        // Choosing player
-        let playerChosen = null
-
-        let whichPlayer = document.createElement('span')
-        whichPlayer.innerHTML = 'Which player do you want to ask a card from?'
-
-        let selectPlayer = document.createElement('select')
-        selectPlayer.setAttribute('name', 'selectPlayer')
-
-        let chooseOption3 = document.createElement('option')
-        chooseOption3.innerHTML = 'Choose an option'
-        chooseOption3.setAttribute('value', '')
-
-        selectPlayer.append(chooseOption3)
-
-        names.forEach(name => {
-            if (name !== names[currPlayerPlaying]) {
-                let currOption = document.createElement('option')
-                currOption.innerHTML = name
-                currOption.setAttribute('value', name)
-
-                selectPlayer.append(currOption) 
-            }
-        })
-
-        selectPlayer.addEventListener('change', (e) => {
-            playerChosen = e.target.value
-        })
-
-        // Confirm choices
-        let confirmChoices = document.createElement('button')
-
-        confirmChoices.innerHTML = 'Confirm choices'
-
-        confirmChoices.addEventListener('click', () => {
-            selectMember.disabled = true
-            selectFamily.disabled = true
-            selectPlayer.disabled = true
-
-            if (playersCards[playerChosen].includes(cardChosen)) {
-                const index = playersCards[playerChosen].indexOf(cardChosen)
-
-                playersCards[playerChosen].splice(index, 1)
-
-                playersCards[names[currPlayerPlaying]].push(cardChosen)
-            } else if (cardsShuffled.length > 0) {
-                playersCards[names[currPlayerPlaying]].push(cardsShuffled.pop())
-            }
-
-            const familyName = cardChosen.split(' ')[1]
-
-            if (checkFullFamily(playersCards[names[currPlayerPlaying]], familyName)) {
-                alert(`${names[currPlayerPlaying]} has won`)
-            } else {
-                alert('Games continues')
-            }
-        })
-
-        currGame.append(title)
-        currGame.append(comment)
-        currGame.append(currCards)
-        currGame.append(whichCard)
-        currGame.append(selectMember)
-        currGame.append(selectFamily)
-        currGame.append(whichPlayer)
-        currGame.append(selectPlayer)
-        currGame.append(confirmChoices)
-
+        // Creates infinite loop => call function when clicking on start game and call
+        // it again when clicking on confirm choices?
         // while (!stopGame) {
+            let title = document.createElement('h1')
+            title.innerHTML = `${names[currPlayerPlaying]} is playing`
 
+            let comment = document.createElement('span')
+            comment.innerHTML = 'Here are your cards:'
+
+            let currCards = document.createElement('ul')
+
+            playersCards[names[currPlayerPlaying]].forEach(card => {
+                let currCard = document.createElement('li')
+                currCard.innerHTML = card
+
+                currCards.append(currCard)
+            })
+
+            // Choosing card
+            let cardChosen = ''
+
+            let whichCard = document.createElement('span')
+            whichCard.innerHTML = 'Which card do you want?'
+
+            let selectMember = document.createElement('select')
+            selectMember.setAttribute('name', 'selectMember')
+            
+            let chooseOption = document.createElement('option')
+            chooseOption.innerHTML = 'Choose an option'
+            chooseOption.setAttribute('value', '')
+
+            selectMember.append(chooseOption)
+
+            members.forEach(member => {
+                let currOption = document.createElement('option')
+                currOption.innerHTML = member
+                currOption.setAttribute('value', member)
+
+                selectMember.append(currOption)
+            })
+
+            selectMember.addEventListener('change', (e) => {
+                cardChosen += e.target.value
+            })
+
+            let selectFamily = document.createElement('select')
+            selectFamily.setAttribute('name', 'selectFamily')
+
+            let chooseOption2 = document.createElement('option')
+            chooseOption2.innerHTML = 'Choose an option'
+            chooseOption2.setAttribute('value', '')
+
+            selectFamily.append(chooseOption2)
+
+            families.forEach(family => {
+                let currOption = document.createElement('option')
+                currOption.innerHTML = family
+                currOption.setAttribute('value', family)
+
+                selectFamily.append(currOption)
+            })
+
+            selectFamily.addEventListener('change', (e) => {
+                cardChosen += ' '
+                cardChosen += e.target.value
+            })
+
+            // Choosing player
+            let playerChosen = null
+
+            let whichPlayer = document.createElement('span')
+            whichPlayer.innerHTML = 'Which player do you want to ask a card from?'
+
+            let selectPlayer = document.createElement('select')
+            selectPlayer.setAttribute('name', 'selectPlayer')
+
+            let chooseOption3 = document.createElement('option')
+            chooseOption3.innerHTML = 'Choose an option'
+            chooseOption3.setAttribute('value', '')
+
+            selectPlayer.append(chooseOption3)
+
+            names.forEach(name => {
+                if (name !== names[currPlayerPlaying]) {
+                    let currOption = document.createElement('option')
+                    currOption.innerHTML = name
+                    currOption.setAttribute('value', name)
+
+                    selectPlayer.append(currOption) 
+                }
+            })
+
+            selectPlayer.addEventListener('change', (e) => {
+                playerChosen = e.target.value
+            })
+
+            // Confirm choices
+            let confirmChoices = document.createElement('button')
+
+            confirmChoices.innerHTML = 'Confirm choices'
+
+            confirmChoices.addEventListener('click', () => {
+                selectMember.disabled = true
+                selectFamily.disabled = true
+                selectPlayer.disabled = true
+
+                if (playersCards[playerChosen].includes(cardChosen)) {
+                    const index = playersCards[playerChosen].indexOf(cardChosen)
+
+                    playersCards[playerChosen].splice(index, 1)
+
+                    playersCards[names[currPlayerPlaying]].push(cardChosen)
+                } else if (cardsShuffled.length > 0) {
+                    playersCards[names[currPlayerPlaying]].push(cardsShuffled.pop())
+                }
+
+                const familyName = cardChosen.split(' ')[1]
+
+                if (checkFullFamily(playersCards[names[currPlayerPlaying]], familyName)) {
+                    stopGame = true
+                } else {
+                    if (currPlayerPlaying < names.length - 1) {
+                        currPlayerPlaying++
+                    } else {
+                        currPlayerPlaying = 0
+                    }
+
+                    currGame.innerHTML = ''
+                }
+            })
+
+            currGame.append(title)
+            currGame.append(comment)
+            currGame.append(currCards)
+            currGame.append(whichCard)
+            currGame.append(selectMember)
+            currGame.append(selectFamily)
+            currGame.append(whichPlayer)
+            currGame.append(selectPlayer)
+            currGame.append(confirmChoices)
         // }
+
+        alert(`${names[currPlayerPlaying]} has won`)
     }
 })
 
