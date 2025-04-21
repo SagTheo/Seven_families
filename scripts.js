@@ -107,9 +107,11 @@ startGame.addEventListener('click', () => {
         let stopGame = false
         let currPlayerPlaying = 0
 
-        // Creates infinite loop => call function when clicking on start game and call
-        // it again when clicking on confirm choices?
-        // while (!stopGame) {
+        const currRound = (stopGame, currPlayerPlaying) => {
+            if (stopGame) {
+                return
+            }
+
             let title = document.createElement('h1')
             title.innerHTML = `${names[currPlayerPlaying]} is playing`
 
@@ -227,6 +229,8 @@ startGame.addEventListener('click', () => {
 
                 if (checkFullFamily(playersCards[names[currPlayerPlaying]], familyName)) {
                     stopGame = true
+
+                    currRound(stopGame, currPlayerPlaying)
                 } else {
                     if (currPlayerPlaying < names.length - 1) {
                         currPlayerPlaying++
@@ -234,7 +238,7 @@ startGame.addEventListener('click', () => {
                         currPlayerPlaying = 0
                     }
 
-                    currGame.innerHTML = ''
+                    currRound(stopGame, currPlayerPlaying)
                 }
             })
 
@@ -247,7 +251,9 @@ startGame.addEventListener('click', () => {
             currGame.append(whichPlayer)
             currGame.append(selectPlayer)
             currGame.append(confirmChoices)
-        // }
+        }
+
+        currRound(stopGame, currPlayerPlaying)
 
         alert(`${names[currPlayerPlaying]} has won`)
     }
