@@ -109,6 +109,8 @@ startGame.addEventListener('click', () => {
 
         const currRound = (stopGame, currPlayerPlaying) => {
             if (stopGame) {
+                alert(`${names[currPlayerPlaying]} has won`)
+
                 return
             }
 
@@ -150,8 +152,10 @@ startGame.addEventListener('click', () => {
                 selectMember.append(currOption)
             })
 
+            // needs check
             selectMember.addEventListener('change', (e) => {
                 cardChosen += e.target.value
+                console.log(cardChosen)
             })
 
             let selectFamily = document.createElement('select')
@@ -211,34 +215,39 @@ startGame.addEventListener('click', () => {
             confirmChoices.innerHTML = 'Confirm choices'
 
             confirmChoices.addEventListener('click', () => {
-                selectMember.disabled = true
-                selectFamily.disabled = true
-                selectPlayer.disabled = true
-
-                if (playersCards[playerChosen].includes(cardChosen)) {
-                    const index = playersCards[playerChosen].indexOf(cardChosen)
-
-                    playersCards[playerChosen].splice(index, 1)
-
-                    playersCards[names[currPlayerPlaying]].push(cardChosen)
-                } else if (cardsShuffled.length > 0) {
-                    playersCards[names[currPlayerPlaying]].push(cardsShuffled.pop())
-                }
-
-                const familyName = cardChosen.split(' ')[1]
-
-                if (checkFullFamily(playersCards[names[currPlayerPlaying]], familyName)) {
-                    stopGame = true
-
-                    currRound(stopGame, currPlayerPlaying)
+                if (playersCards[names[currPlayerPlaying]].includes(cardChosen)) {
+                    alert('You can not choose a card you already have in your deck')
                 } else {
-                    if (currPlayerPlaying < names.length - 1) {
-                        currPlayerPlaying++
-                    } else {
-                        currPlayerPlaying = 0
+                    selectMember.disabled = true
+                    selectFamily.disabled = true
+                    selectPlayer.disabled = true
+                    confirmChoices.disabled = true
+
+                    if (playersCards[playerChosen].includes(cardChosen)) {
+                        const index = playersCards[playerChosen].indexOf(cardChosen)
+
+                        playersCards[playerChosen].splice(index, 1)
+
+                        playersCards[names[currPlayerPlaying]].push(cardChosen)
+                    } else if (cardsShuffled.length > 0) {
+                        playersCards[names[currPlayerPlaying]].push(cardsShuffled.pop())
                     }
 
-                    currRound(stopGame, currPlayerPlaying)
+                    const familyName = cardChosen.split(' ')[1]
+
+                    if (checkFullFamily(playersCards[names[currPlayerPlaying]], familyName)) {
+                        stopGame = true
+
+                        currRound(stopGame, currPlayerPlaying)
+                    } else {
+                        if (currPlayerPlaying < names.length - 1) {
+                            currPlayerPlaying++
+                        } else {
+                            currPlayerPlaying = 0
+                        }
+
+                        currRound(stopGame, currPlayerPlaying)
+                    }
                 }
             })
 
@@ -254,8 +263,6 @@ startGame.addEventListener('click', () => {
         }
 
         currRound(stopGame, currPlayerPlaying)
-
-        alert(`${names[currPlayerPlaying]} has won`)
     }
 })
 
