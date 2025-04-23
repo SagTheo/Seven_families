@@ -130,7 +130,7 @@ startGame.addEventListener('click', () => {
             })
 
             // Choosing card
-            let cardChosen = ''
+            let cardChosen = []
 
             let whichCard = document.createElement('span')
             whichCard.innerHTML = 'Which card do you want?'
@@ -154,8 +154,7 @@ startGame.addEventListener('click', () => {
 
             // needs check
             selectMember.addEventListener('change', (e) => {
-                cardChosen += e.target.value
-                console.log(cardChosen)
+                cardChosen[0] = e.target.value
             })
 
             let selectFamily = document.createElement('select')
@@ -176,8 +175,7 @@ startGame.addEventListener('click', () => {
             })
 
             selectFamily.addEventListener('change', (e) => {
-                cardChosen += ' '
-                cardChosen += e.target.value
+                cardChosen[1] = e.target.value
             })
 
             // Choosing player
@@ -218,22 +216,23 @@ startGame.addEventListener('click', () => {
                 if (playersCards[names[currPlayerPlaying]].includes(cardChosen)) {
                     alert('You can not choose a card you already have in your deck')
                 } else {
+                    const cardChosenStr = cardChosen.join(' ')
                     selectMember.disabled = true
                     selectFamily.disabled = true
                     selectPlayer.disabled = true
                     confirmChoices.disabled = true
 
-                    if (playersCards[playerChosen].includes(cardChosen)) {
-                        const index = playersCards[playerChosen].indexOf(cardChosen)
+                    if (playersCards[playerChosen].includes(cardChosenStr)) {
+                        const index = playersCards[playerChosen].indexOf(cardChosenStr)
 
                         playersCards[playerChosen].splice(index, 1)
 
-                        playersCards[names[currPlayerPlaying]].push(cardChosen)
+                        playersCards[names[currPlayerPlaying]].push(cardChosenStr)
                     } else if (cardsShuffled.length > 0) {
                         playersCards[names[currPlayerPlaying]].push(cardsShuffled.pop())
                     }
 
-                    const familyName = cardChosen.split(' ')[1]
+                    const familyName = cardChosen[1]
 
                     if (checkFullFamily(playersCards[names[currPlayerPlaying]], familyName)) {
                         stopGame = true
