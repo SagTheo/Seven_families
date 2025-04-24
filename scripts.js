@@ -107,13 +107,36 @@ startGame.addEventListener('click', () => {
         let stopGame = false
         let currPlayerPlaying = 0
 
-        const currRound = (stopGame, currPlayerPlaying) => {
+        const currRound = (stopGame, currPlayerPlaying, winningFamily = null) => {
             if (stopGame) {
-                alert(`${names[currPlayerPlaying]} has won`)
+                currGame.innerHTML = ''
+
+                let winTitle = document.createElement('h1')
+                winTitle.innerHTML = `${names[currPlayerPlaying]} has won`
+                
+                let winList = document.createElement('ul')
+
+                playersCards[names[currPlayerPlaying]].forEach(card => {
+                    let currListItem = document.createElement('li')
+                    currListItem.innerHTML = card
+
+                    if (card.includes(winningFamily)) {
+                        currListItem.setAttribute('class', 'red')
+                    }
+
+                    winList.append(currListItem)
+                })
+
+                currGame.append(winTitle)
+                currGame.append(winList)
 
                 return
             }
 
+            // To empty currGame
+            currGame.innerHTML = ''
+
+            // To display all elements for current player
             let title = document.createElement('h1')
             title.innerHTML = `${names[currPlayerPlaying]} is playing`
 
@@ -152,7 +175,6 @@ startGame.addEventListener('click', () => {
                 selectMember.append(currOption)
             })
 
-            // needs check
             selectMember.addEventListener('change', (e) => {
                 cardChosen[0] = e.target.value
             })
@@ -212,11 +234,13 @@ startGame.addEventListener('click', () => {
 
             confirmChoices.innerHTML = 'Confirm choices'
 
+            // Add check to check if card and player were actually chosen
             confirmChoices.addEventListener('click', () => {
-                if (playersCards[names[currPlayerPlaying]].includes(cardChosen)) {
+                const cardChosenStr = cardChosen.join(' ')
+
+                if (playersCards[names[currPlayerPlaying]].includes(cardChosenStr)) {
                     alert('You can not choose a card you already have in your deck')
                 } else {
-                    const cardChosenStr = cardChosen.join(' ')
                     selectMember.disabled = true
                     selectFamily.disabled = true
                     selectPlayer.disabled = true
@@ -237,7 +261,7 @@ startGame.addEventListener('click', () => {
                     if (checkFullFamily(playersCards[names[currPlayerPlaying]], familyName)) {
                         stopGame = true
 
-                        currRound(stopGame, currPlayerPlaying)
+                        currRound(stopGame, currPlayerPlaying, familyName)
                     } else {
                         if (currPlayerPlaying < names.length - 1) {
                             currPlayerPlaying++
@@ -300,7 +324,7 @@ const checkFullFamily = (cards, familyName) => {
         }
     })
 
-    if (counter === 7) {
+    if (counter === 6) {
         return true
     }
 
