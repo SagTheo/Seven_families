@@ -234,11 +234,14 @@ startGame.addEventListener('click', () => {
 
             confirmChoices.innerHTML = 'Confirm choices'
 
-            // Add check to check if card and player were actually chosen
             confirmChoices.addEventListener('click', () => {
                 const cardChosenStr = cardChosen.join(' ')
 
-                if (playersCards[names[currPlayerPlaying]].includes(cardChosenStr)) {
+                if (cardChosen.length !== 2) {
+                    alert('You must choose a card')
+                } else if (playerChosen === '' || playerChosen === null) {
+                    alert('You must choose a player')
+                } else if (playersCards[names[currPlayerPlaying]].includes(cardChosenStr)) {
                     alert('You can not choose a card you already have in your deck')
                 } else {
                     selectMember.disabled = true
