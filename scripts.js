@@ -143,12 +143,16 @@ startGame.addEventListener('click', () => {
             let comment = document.createElement('span')
             comment.innerHTML = 'Here are your cards:'
 
-            let currCards = document.createElement('ul')
+            let currCards = document.createElement('div')
+            currCards.setAttribute('class', 'listCards')
 
             playersCards[names[currPlayerPlaying]].forEach(card => {
-                let currCard = document.createElement('li')
-                currCard.innerHTML = card
+                let currCard = document.createElement('div')
+                let currText = document.createElement('div')
 
+                currText.textContent = card
+
+                currCard.append(currText)
                 currCards.append(currCard)
             })
 
