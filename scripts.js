@@ -147,12 +147,19 @@ startGame.addEventListener('click', () => {
             currCards.setAttribute('class', 'listCards')
 
             playersCards[names[currPlayerPlaying]].forEach(card => {
+                let cardSplit = card.split(' ')
                 let currCard = document.createElement('div')
-                let currText = document.createElement('div')
+                let familyMember = document.createElement('div')
+                let familyName = document.createElement('div')
 
-                currText.textContent = card
+                familyMember.setAttribute('class', 'familyMember')
+                familyMember.textContent = cardSplit[0]
 
-                currCard.append(currText)
+                familyName.setAttribute('class', 'familyName')
+                familyName.textContent = cardSplit[1]
+
+                currCard.append(familyMember)
+                currCard.append(familyName)
                 currCards.append(currCard)
             })
 
