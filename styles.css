@@ -20,9 +20,9 @@ body {
     height: 200px;
     font-size: 1.5rem;
     border-radius: 5px;
-    border: solid blue 5px;
-    background-color: rgb(127, 127, 252);
-    color: gold;
+    border: solid black 5px;
+    background-color: rgb(0, 0, 255);
+    color: yellow;
 }
 
 .familyMember, .familyName {
@@ -37,4 +37,26 @@ body {
 
 .familyName {
     margin-top: 10px;
+}
+
+.playerChoices {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 10px;
+}
+
+button {
+    background-color: blue;
+    color: yellow;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: rgb(83, 83, 255);
+    color: rgb(255, 255, 90);
 }

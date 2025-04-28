@@ -166,6 +166,9 @@ startGame.addEventListener('click', () => {
             // Choosing card
             let cardChosen = []
 
+            let playerChoices = document.createElement('div')
+            playerChoices.setAttribute('class', 'playerChoices')
+
             let whichCard = document.createElement('span')
             whichCard.innerHTML = 'Which card do you want?'
 
@@ -288,15 +291,17 @@ startGame.addEventListener('click', () => {
                 }
             })
 
+            playerChoices.append(whichCard)
+            playerChoices.append(selectMember)
+            playerChoices.append(selectFamily)
+            playerChoices.append(whichPlayer)
+            playerChoices.append(selectPlayer)
+            playerChoices.append(confirmChoices)
+
             currGame.append(title)
             currGame.append(comment)
             currGame.append(currCards)
-            currGame.append(whichCard)
-            currGame.append(selectMember)
-            currGame.append(selectFamily)
-            currGame.append(whichPlayer)
-            currGame.append(selectPlayer)
-            currGame.append(confirmChoices)
+            currGame.append(playerChoices)
         }
 
         currRound(stopGame, currPlayerPlaying)
