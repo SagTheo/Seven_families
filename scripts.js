@@ -92,10 +92,15 @@ startGame.addEventListener('click', () => {
         alert('There must be at least 2 players to start a game')
     } else {
         addPlayer.disabled = true
+        addPlayer.setAttribute('class', 'disabledButton')
         startGame.disabled = true
+        startGame.setAttribute('class', 'disabledButton')
         
         allPlayers.forEach(player => {
             player.children[1].disabled = true
+
+            const className = player.children[1].getAttribute('class')
+            player.children[1].setAttribute('class', `${className} disabledButton`)
         })
 
         const cardsShuffled = shuffle(allFamilies)

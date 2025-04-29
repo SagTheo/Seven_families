@@ -60,3 +60,25 @@ button:hover {
     background-color: rgb(83, 83, 255);
     color: rgb(255, 255, 90);
 }
+
+.disabledButton {
+    background-color: grey;
+    color: black;
+}
+
+.disabledButton:hover {
+    cursor: auto;
+    background-color: grey;
+    color: black;
+}
+
+.players {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.players div button {
+    margin-left: 5px;
+}
