@@ -315,10 +315,16 @@ startGame.addEventListener('click', () => {
 
 newGame.addEventListener('click', () => {
     players.innerHTML = ''
+
     addPlayer.disabled = false
+    addPlayer.removeAttribute('class')
+
     startGame.disabled = false
+    startGame.removeAttribute('class')
+
     allPlayers = []
     names = []
+    
     currGame.innerHTML = ''
 })
 
